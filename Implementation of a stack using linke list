@@ -1,0 +1,102 @@
+#include<stdio.h>
+#include<stdlib.h>
+void push();
+void pop();
+void display();
+//creating a node
+struct node 
+{
+	int val ;
+	struct node *next;
+};
+struct node *head;
+int main()
+{
+	int choice;
+while(1)
+	{
+		printf("\n operation performed by stack");
+		printf("\n 1.push\n 2.pop\n 3.display\n");
+		scanf("%d",&choice);
+		switch(choice)		
+		{
+		case 1: push();
+  		break;
+		case 2: pop();
+		break;
+		case 3:display();
+		break;
+		case 4:exit(0);
+		default:printf("invalid");
+		}
+	}
+}
+//push()operation on a stack
+void push()
+{
+	int val;
+	struct node *ptr=(struct node*)malloc(sizeof(struct node));
+	if(ptr==NULL)
+	{
+		printf("not able to push the element");
+	}
+	else   //assigning the value to a node
+	{
+		printf("enter the value");
+		scanf("%d",&val);
+	}
+	if(head==NULL)
+	{
+		ptr->val=val;
+		ptr ->next=NULL;
+		head=ptr;
+	}
+	else //make the node as head
+	{
+	ptr->val=val;
+	ptr->next=head;
+	head=ptr;
+	}
+	printf("item pushed");
+	
+}
+//pop()operation on a stack
+void pop()
+{
+	int item;
+	struct node *ptr;
+	if(head==NULL)
+	{
+		printf("underflow");
+	}
+	else
+	{
+		item=head->val;
+		ptr=head;
+		head=head->next;
+		free(ptr);
+		printf("item popped");
+	}
+}
+//display the elements of the stack.
+	
+void display()
+{
+	int i;
+	struct node*ptr;
+	ptr=head;
+	if(ptr==NULL)
+	{
+		printf("stack is empty");
+	}
+	else
+	{
+		printf("printing stack elements\n");
+		while(ptr!=NULL)
+		{
+			printf("%d",ptr->val);
+			ptr=ptr -> next;
+		}
+	}
+}
+
