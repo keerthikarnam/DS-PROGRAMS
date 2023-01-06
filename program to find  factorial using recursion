@@ -1,0 +1,28 @@
+//program for factorial using recursion
+#include<stdio.h>
+int fac(int);   //initializing the factorial
+int main()
+{
+	int n,f;
+	printf("enter the number for which you want to find factorial");   //taking the value of n 
+	scanf("%d",&n);
+	f=fact(n);
+	printf("factorial: %d",f);
+}
+//Recursive function to find factorial
+int fact (int n)
+{
+	if(n==0)
+	{
+		return 0;          //if n=0 returning the 0
+	}
+	if(n==1)
+	{
+		return 1;           //if n=1 returning the 1
+
+	}
+	else
+	{
+		return n*fact(n-1);
+	}
+}
