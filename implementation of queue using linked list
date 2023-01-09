@@ -1,0 +1,83 @@
+//program to implement queue using array (linked list)//
+	#include <stdio.h>
+	#include<stdlib.h>
+	#define MAX 50
+	void insert();
+	void delete();
+	void display();
+	int queue_array[MAX];
+	int rear = - 1;
+	int front = - 1;
+	void main()
+	{
+	int choice;
+	while (1)
+	{
+	printf("menu \n");//displays the operation performed on the queue//
+	printf("\n 1.enqueue operation\n");
+	printf("\n 2. Dequeue operation\n ");
+	printf("\n 3. display operation \n ");
+	printf("\n quit\n ");
+	printf("Enter your choice of operation : ");
+	scanf("%d", &choice);
+	switch (choice)
+	{
+	case 1: insert();
+	break;
+	case 2: delete();
+	break;
+	case 3: display();
+	break;
+	case 4:exit(1);
+	break;
+	default: printf("Wrong choice \n");
+	} 
+	} 
+	} 
+	
+	
+	void insert()
+	{
+	int item;
+	if (rear == MAX - 1)// condition to check if the queue is full //
+	printf("Queue Overflow \n");
+	else
+	{
+	if (front == - 1)
+	front = 0;
+	printf("Inset the element in queue : ");//taking the number from the user to be entered in the queue//
+	scanf("%d", &item);
+	rear = rear + 1;//incrementing the position of the rear end//
+	queue_array[rear] = item;
+	}
+	
+	}
+	
+	
+	void delete()
+	{
+	if (front == - 1 || front > rear)//condition to check if the queue is empty//
+	{
+	printf("Queue Underflow \n");
+	return ;
+	}
+	else
+	{
+	printf("Element deleted from queue is : %d\n", queue_array[front]);//displays the element that is deleted from the queue//
+	front = front + 1;//incrementing the position of the front end//
+	}
+	} 
+	
+	void display()
+	{
+	int i;
+	if (front == - 1)//condition to check if the queue is empty//
+	printf("Queue is empty \n");
+	else
+	{
+	printf("Queue is : \n");
+	for (i = front; i <= rear; i++)//displays the elements in the array of the queue using the for loop//
+	printf("%d ", queue_array[i]);
+	printf("\n");
+	}
+	} 
