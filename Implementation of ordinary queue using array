@@ -1,0 +1,99 @@
+#include<stdio.h>
+#include<stdlib.h>
+#define maxsize 30                                  //Defining the size of array
+int front=-1,rear=-1;
+int queue[maxsize];
+void insert()                                           //Function to insert the elements
+{
+	int item;
+	printf ("enter the elements");          //taking the input from the user
+	scanf ("%d",& item);
+	if(rear==maxsize-1)                 //Checking if the queue is full
+	{
+               printf("overflow");
+	       return;
+	  }
+	      
+	if(front==-1&&rear==-1)
+	{
+		front=0;
+		rear=0;
+	}
+	else
+		rear=rear+1;
+	
+	queue[rear]=item;
+	printf("value inserted");                 //Value is inserted in the queue
+}
+
+void delete()                                               //Function to delete the element
+{ 
+	int item;
+	if(front==-1||front>rear)                    //Checking if the queue is empty
+	{
+	  printf("underflow");
+	  return;
+	}	
+	
+	else
+	{
+		item=queue[front];
+		if(front==rear)
+		{
+			front=-1;
+			rear=-1;
+		}
+		
+		else
+		  front=front+1;
+		
+	}
+}
+
+void display()                              //Function to display the elements in the queue
+{
+int i;
+	
+	if(rear==-1)
+	 printf("empty queue");
+	
+	else
+	{
+		printf("printing the values");
+		for(i=front;i<=rear;i++)
+		  printf("%d",queue[i]);
+		
+	}
+}
+                  
+int main()                  //Main function
+{
+int choice;  
+        while(1)  
+        {      
+            printf("1.insert an element\n2.Delete an element\n3.Display the queue\n4.Exit\n");  
+            printf("Enter your choice ?");  
+            scanf("%d",& choice);  
+            switch(choice)                                 // Switch case to select the operation to be performed
+            {  
+                case 1:  
+                       insert();  
+                       break;  
+
+                case 2:  
+                       delete();  
+                       break;  
+               
+               case 3:  
+                       display();  
+                       break;  
+
+               case 4:  
+                       exit(0);  
+                       break;  
+
+                default:  
+                printf("Enter valid choice??\n");  
+            }  
+        }  
+    }  
