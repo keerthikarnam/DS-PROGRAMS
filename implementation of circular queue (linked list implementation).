@@ -1,94 +1,100 @@
-#include <stdio.h>
-
-# define max 6
-int queue[max];  // array declaration
-int front=-1;
-int rear=-1;
-// function to insert an element in a circular queue
-void enqueue(int element)
+	#include<stdio.h>
+#include<stdlib.h>
+struct node//declaration of struct node//
 {
-    if(front==-1 && rear==-1)   // condition to check queue is empty
-    {
-        front=0;
-        rear=0;
-        queue[rear]=element;
-    }
-    else if((rear+1)%max==front)  // condition to check queue is full
-    {
-        printf("Queue is overflow..");
-    }
-    else
-    {
-        rear=(rear+1)%max;       // rear is incremented
-        queue[rear]=element;     // assigning a value to the queue at the rear position.
-    }
-}
-
-// function to delete the element from the queue
-int dequeue()
+ int data;
+    struct node *next;
+};
+    struct node *front=NULL;
+    struct node *rear=NULL;
+void enqueue(int x)//function to insert an element in the queue//
 {
-    if((front==-1) && (rear==-1))  // condition to check queue is empty
+    struct node*newnode;//declaration of the new struct node//
+    newnode=(struct node*)malloc(sizeof(struct node));//dynamic memeory allocation of the newnode//
+    newnode->data=x;
+    newnode->next=NULL;
+    if(rear==NULL)//condition to check if the queue is empty//
     {
-        printf("\nQueue is underflow..");
-    }
- else if(front==rear)
-{
-   printf("\nThe dequeued element is %d", queue[front]);
-   front=-1;
-   rear=-1;
-}
-else
-{
-    printf("\nThe dequeued element is %d", queue[front]);
-   front=(front+1)%max;
-}
-}
-// function to display the elements of a queue
-void display()
-{
-    int i=front;
-    if(front==-1 && rear==-1)
-    {
-        printf("\n Queue is empty..");
+        front=rear=newnode;
+        rear->next=front;
     }
     else
     {
-        printf("\nElements in a Queue are :");
-        while(i<=rear)
+        rear->next=newnode;
+        rear=newnode;
+        rear->next=front;
+    }
+}
+void dequeue()//function to delete an element in the queue//
+{
+    struct node* temp;//declaring a new temproary node of struct type//
+    temp=front;
+    if((front==NULL)&&(rear==NULL))//condn to check if the queue is empty//
+    {
+        printf("queue is empty");
+    }
+    else if(front==rear)
+    {
+        front=rear=NULL;
+        free(temp);
+    }
+    else
+    {
+        front=front->next;
+        rear->next=front;
+        free(temp);
+    }
+}
+void display()//function to display elements in the queue//
+{
+    struct node *temp;
+    temp=front;
+    if(front==NULL&&rear==NULL)
+    {
+        printf("queue is empty");
+    }
+    else
+    {
+        printf("element in a queue are:");
+        while(temp->next!=front)
         {
-            printf("%d,", queue[i]);
-            i=(i+1)%max;
+            printf("%d \t",temp->data);
+            temp=temp->next;
         }
+            printf("%d \t",temp->data);
     }
 }
 int main()
 {
-    int choice=1,x;   // variables declaration
-
-    while(choice<4 && choice!=0)   // while loop
+    int choice,x;
+    while (1)
     {
-    printf("\n Press 1: Insert an element");
-    printf("\nPress 2: Delete an element");
-    printf("\nPress 3: Display the element");
-    printf("\nEnter your choice");
-    scanf("%d", &choice);
+        printf("1.Insert element to queue \n");//menu of the operations that can be performed in the queue//
+        printf("2.Delete element from queue \n");
+        printf("3.Display all elements of queue \n");
+        printf("4.Quit \n");
+        printf("Enter your choice : ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
 
-    switch(choice)
-    {
 
-        case 1:
-
-        printf("Enter the element which is to be inserted");
-        scanf("%d", &x);
-        enqueue(x);
-        break;
-        case 2:
-        dequeue();
-        break;
-        case 3:
-        display();
-
-    }
+            case 1:printf("enter the element you want to enter");
+            scanf("%d",&x);
+            enqueue(x);
+        
+            break;
+            case 2:
+            dequeue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            exit(1);
+            default:
+            printf("Wrong choice \n");
+        } 
+    } 
 }
-    return 0;
-}
+
