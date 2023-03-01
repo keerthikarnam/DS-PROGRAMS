@@ -1,0 +1,233 @@
+Program:
+// Implementation of singly linked list
+#include <stdio.h>
+#include <stdlib.h>
+
+struct node
+{
+	int data;
+	struct node *next;
+};
+struct node *head;
+
+// insertion at the beginning
+void begin_insert()
+{
+	struct node *ptr;
+	int item;
+	ptr = (struct node *)malloc(sizeof(struct node));
+
+	if (ptr == NULL)
+		printf("Overflow\n");
+
+	else
+	{
+		printf("Enter value: ");
+		scanf("%d", &item);
+		ptr->data = item;
+		ptr->next = head;
+		head = ptr;
+		printf("Node inserted\n");
+	}
+}
+
+// insertion at last
+void last_insert()
+{
+	struct node *ptr, *temp;
+	int item;
+	ptr = (struct node *)malloc(sizeof(struct node));
+
+	if (ptr == NULL)
+		printf("Overflow\n");
+
+	else
+	{
+		printf("Enter value: ");
+		scanf("%d", &item);
+		ptr->data = item;
+		if (head == NULL)
+		{
+			ptr->next = NULL;
+			head = ptr;
+			printf("Node inserted\n");
+		}
+		else
+		{
+			temp = head;
+			while (temp->next = NULL)
+				temp = temp->next;
+
+			temp->next = ptr;
+			ptr->next = NULL;
+			printf("Node inserted\n");
+		}
+	}
+}
+
+// insertion at random
+void random_insert()
+{
+	struct node *ptr, *temp;
+	int item, i, loc;
+	ptr = (struct node *)malloc(sizeof(struct node));
+	if (ptr == NULL)
+		printf("Overflow\n");
+
+	else
+	{
+		printf("Enter value: ");
+		scanf("%d", &item);
+		ptr->data = item;
+		printf("Enter the location after which you want ot insert: ");
+		scanf("%d", &loc);
+		temp = head;
+		for (i = 0; i < loc; i++)
+		{
+			temp = temp->next;
+			if (temp == NULL)
+			{
+				printf("Cannot insert\n");
+				return;
+			}
+		}
+		ptr->next = temp->next;
+		temp->next = ptr;
+		printf("Node inserted\n");
+	}
+}
+
+// deletion from beginning
+void begin_delete()
+{
+	struct node *ptr;
+	if (head == NULL)
+		printf("List is empty\n");
+
+	else
+	{
+		ptr = head;
+		head = ptr->next;
+		free(ptr);
+		printf("Node deleted from last\n");
+	}
+}
+
+// deletion from end
+void last_delete()
+{
+	struct node *ptr, *ptr1;
+	if (head == NULL)
+		printf("List is empty\n");
+
+	else if (head->next == NULL)
+	{
+		head = NULL;
+		free(head);
+		printf("Only node of the list is deleted\n");
+	}
+
+	else
+	{
+		ptr = head;
+		while (ptr->next != NULL)
+		{
+			ptr1 = ptr;
+			ptr = ptr->next;
+		}
+		ptr1->next = NULL;
+		free(ptr);
+		printf("Deleted node from last\n");
+	}
+}
+
+// deletion from random location
+void random_delete()
+{
+	struct node *ptr, *ptr1;
+	int i, loc;
+	printf("Enter the location of the node after which it has to be deleted\n");
+	scanf("%d", &loc);
+	ptr = head;
+	for (i = 0; i < loc; i++)
+	{
+		ptr1 = ptr;
+		ptr = ptr->next;
+		if (ptr == NULL)
+		{
+			printf("Cannot delete\n");
+			return;
+		}
+	}
+	ptr1->next = ptr->next;
+	free(ptr);
+	printf("Deleted node at %d", loc + 1);
+}
+
+// display
+void display()
+{
+	if (head == NULL)
+	{
+		printf("List is empty\n");
+		return;
+	}
+
+	printf("Linked list:\n");
+	struct node *ptr = head;
+	while (ptr != NULL)
+	{
+		printf("%d", ptr->data);
+		ptr = ptr->next;
+		printf("\n");
+	}
+}
+
+// main function
+int main()
+{
+	int choice;
+	while (1)
+	{
+		printf("Choose one of the following options:\n");
+		printf("1. Insert at beginning\n2. Insert at last\n3. Insert at random\n4. Delete from beginning\n5. Delete from last\n6. Delete from random\n7. Display\n8. Exit\n");
+		scanf("%d", &choice);
+		switch (choice)
+		{
+		case 1:
+			begin_insert();
+			break;
+
+		case 2:
+			last_insert();
+			break;
+
+		case 3:
+			random_insert();
+			break;
+
+		case 4:
+			begin_delete();
+			break;
+
+		case 5:
+			last_delete();
+			break;
+
+		case 6:
+			random_delete();
+			break;
+
+		case 7:
+			display();
+			break;
+
+		case 8:
+			exit(0);
+			break;
+
+		default:
+			printf("Please make a valid choice\n");
+		}
+	}
+}
